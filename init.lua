@@ -9,5 +9,3 @@ vim.cmd("set rnu");
 vim.g.mapleader = " "
 
 require("config.lazy")
-require("lazy").setup("plugins")
-
