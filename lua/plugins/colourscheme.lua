@@ -4,7 +4,9 @@ return {
     priority = 1000,
     opts = {
       colorscheme = "tokyonight",
-	  style = "moon"
+	  style = "moon",
+	  transparent = true,
+
     },
   }
 
