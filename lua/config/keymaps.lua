@@ -14,6 +14,7 @@ vim.api.nvim_set_keymap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", { noremap = tru
 vim.api.nvim_set_keymap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-w>/", "<C-\\><C-n>", { noremap = true, silent = true })
 
 -- Which-Key
 map("n", "<leader>z", ":WhichKey <leader><CR>", opts)
