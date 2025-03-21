@@ -7,7 +7,13 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "  -- Space as leader key
 
 -- Generic Keybindings
-map("n", "<leader>/", ":noh<CR>", opts) 
+map("n", "<leader>/", ":noh<CR>", opts)
+
+-- Terminal navigation
+vim.api.nvim_set_keymap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", { noremap = true, silent = true })
 
 -- Which-Key
 map("n", "<leader>z", ":WhichKey <leader><CR>", opts)
@@ -24,4 +30,4 @@ map("n", "<leader>g", ":Telescope live_grep<CR>", opts)
 
 
 --floaterm
-map("n", "<leader>x", ":FloatermNew<CR>", opts)
+map("n", "<leader>x", ":FloatermNew --wintype=split --height=0.3<CR>", opts)
