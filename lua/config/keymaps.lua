@@ -9,12 +9,19 @@ vim.g.mapleader = " "  -- Space as leader key
 -- Generic Keybindings
 map("n", "<leader>/", ":noh<CR>", opts) 
 
+-- Which-Key
+map("n", "<leader>z", ":WhichKey <leader><CR>", opts)
+
 -- Neotree
-map("n", "<leader>tt", ":Neotree toggle=true<CR>", opts)
-map("n", "<leader>th", ":Neotree<CR>", opts)
-map("n", "<leader>ty", ":Neotree close<CR>", opts)
-map("n", "<leader>tr", function()
-	vim.cmd("Neotree reveal")
-	vim.cmd("Neotree dir=..")
-end, opts)
-map("n", "<leader>tf", ":Neotree dir=", opts)
+map("n", "<leader>t", ":Neotree toggle=true<CR>", opts)
+
+-- Oil
+map("n", "<leader>o", ":Oil<CR>", opts)
+
+-- Telescope
+map("n", "<leader>f", ":Telescope find_files<CR>", opts)
+map("n", "<leader>g", ":Telescope live_grep<CR>", opts)
+
+
+--floaterm
+map("n", "<leader>x", ":FloatermNew<CR>", opts)
