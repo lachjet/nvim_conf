@@ -22,9 +22,6 @@ nmap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", opts)
 nmap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", opts)
 nmap("t", "<C-w>/", "<C-\\><C-n>", opts)
 
--- Which-Key
-map("n", "<leader>z", ":WhichKey <leader><CR>", opts)
-
 -- Neotree
 map("n", "<leader>t", ":Neotree toggle=true<CR>", opts)
 
