@@ -10,6 +10,11 @@ vim.g.mapleader = " "  -- Space as leader key
 -- Generic Keybindings
 map("n", "<leader>/", ":noh<CR>", opts)
 
+-- Clipboard Copy and Paste
+map("v", "<C-c>", '"+y', opts)
+map({"n", "i"}, "<C-p>", '"+p', opts)
+map("i", "<C-S-v>", "<C-r>+", opts)
+
 -- Terminal navigation
 nmap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", opts)
 nmap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", opts)
