@@ -1,6 +1,7 @@
 -- Keybindings Config (lua/config/keymaps.lua)
 
 local map = vim.keymap.set
+local nmap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- Leader Key
@@ -10,11 +11,11 @@ vim.g.mapleader = " "  -- Space as leader key
 map("n", "<leader>/", ":noh<CR>", opts)
 
 -- Terminal navigation
-vim.api.nvim_set_keymap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<C-w>/", "<C-\\><C-n>", { noremap = true, silent = true })
+nmap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", opts)
+nmap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", opts)
+nmap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", opts)
+nmap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", opts)
+nmap("t", "<C-w>/", "<C-\\><C-n>", opts)
 
 -- Which-Key
 map("n", "<leader>z", ":WhichKey <leader><CR>", opts)
