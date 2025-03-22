@@ -13,4 +13,16 @@ return {
   opts = {
     -- fill any relevant options here
   },
+  config = function()
+    -- NeoTree configuration to show hidden files
+    require("neo-tree").setup({
+      filesystem = {
+        filtered_items = {
+          visible = true,          -- Show filtered files
+          hide_dotfiles = false,   -- Don't hide dotfiles
+          hide_gitignore = false,  -- Optionally disable hiding files listed in .gitignore
+        },
+      },
+    })
+  end,
 }
