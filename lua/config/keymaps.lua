@@ -34,3 +34,6 @@ map("n", "<leader>g", ":Telescope live_grep<CR>", opts)
 --floaterm
 map("n", "<leader>x", ":FloatermNew --wintype=split --height=1.3<CR>", opts)
 map("n", "<leader>a", ":FloatermNew<CR>", opts)
+
+--lazygit
+map("n", "<leader>m", ":FloatermNew<CR>lazygit<CR>", opts)
