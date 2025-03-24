@@ -16,9 +16,10 @@ map("n", "<leader>l", ":Lazy<CR>", opts)
 map("v", "<C-c>", '"+y', opts)
 map({"n", "i"}, "<C-p>", '"+p', opts)
 map("i", "<C-S-v>", "<C-r>+", opts)
- 
+
 -- Neotree
 map("n", "<leader>nt", ":Neotree toggle=true<CR>", opts)
+map("n", "<leader>nf", ":Neotree focus<CR>", opts)
 
 -- Oil
 map("n", "<leader>fo", ":Oil<CR>", opts)
@@ -43,7 +44,7 @@ nmap("t", "<C-t>/", "<C-\\><C-n>", opts)
 --floaterm
 map("n", "<leader>td", ":FloatermNew --wintype=split --height=0.3<CR>", opts)
 map("n", "<leader>tn", ":FloatermNew<CR>", opts)
-map("n", "<leader>ts", ":FloatermShow<CR>", opts) 
+map("n", "<leader>ts", ":FloatermShow<CR>", opts)
 map("t", "<C-t>k", "<C-\\><C-n>:FloatermKill<CR>", opts)
 map("t", "<C-t>n", "<C-\\><C-n>:FloatermNext<CR>", opts)
 map("t", "<C-t>h", "<C-\\><C-n>:FloatermHide<CR>", opts)
