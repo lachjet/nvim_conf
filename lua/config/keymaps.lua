@@ -33,6 +33,11 @@ nmap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", opts)
 nmap("t", "<C-w><Down>", "<C-\\><C-n><C-w>j", opts)
 nmap("t", "<C-w><Up>", "<C-\\><C-n><C-w>k", opts)
 nmap("t", "<C-w><Right>", "<C-\\><C-n><C-w>l", opts)
+nmap("t", "<C-w>h", "<C-\\><C-n><C-w>h", opts)
+nmap("t", "<C-w>j", "<C-\\><C-n><C-w>j", opts)
+nmap("t", "<C-w>k", "<C-\\><C-n><C-w>k", opts)
+nmap("t", "<C-w>l", "<C-\\><C-n><C-w>l", opts)
+nmap("t", "<C-w>/", "<C-\\><C-n>", opts)
 nmap("t", "<C-t>/", "<C-\\><C-n>", opts)
 
 --floaterm
