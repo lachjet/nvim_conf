@@ -13,7 +13,8 @@ return {
 				"cmake",
 				"vim",
 				"vimdoc",
-				"query"
+				"query",
+				"java"
 			},
 
 			auto_install = true,
