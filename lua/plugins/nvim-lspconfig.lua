@@ -13,6 +13,9 @@ return {
 		lspconfig.lua_ls.setup({
 			capabilities = capbts;
 		})
+		lspconfig.texlab.setup({
+			capabilities = capbts;
+		})
 	end,
 }
 

@@ -28,6 +28,7 @@ map("n", "<leader>fo", ":Oil<CR>", opts)
 map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 map("n", "<leader>ft", ":Telescope <CR>", opts)
+map("n", "<leader>fm", ":Telescope media_files<CR>", opts)
 
 -- Terminal navigation
 nmap("t", "<C-w><Left>", "<C-\\><C-n><C-w>h", opts)
