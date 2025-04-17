@@ -33,6 +33,8 @@ return {
 								vim.fn.jobstart({ "sxiv", path }, {detach = true})
 							elseif path:match("%.html") then
 							    vim.cmd("FloatermNew --title=preview.html --width=150 --height=50 w3m " .. path)
+							elseif path:match("%.odt") or path:match("%.doc") or path:match("%.docx") then
+								vim.fn.jobstart({"libreoffice", path }, {detach = true})
 							else
 								require("neo-tree.sources.filesystem.commands").open(state)
 							end
@@ -48,7 +50,9 @@ return {
 						end
 					end,
 				},
-				follow_current_file = true,
+				follow_current_file = {
+					enabled = true,
+				},
 				use_libuv_file_watcher = true,
 			},
 		})

@@ -9,6 +9,8 @@ vim.g.mapleader = " "  -- Space as leader key
 
 -- Generic Keybindings
 map("n", "<leader>/", ":noh<CR>", opts)
+map("n", "<leader>sc", ":setlocal spell spelllang=en_au<CR>", opts)
+map("n", "<leader>so", ":set nospell<CR>", opts)
 
 -- Lazy
 map("n", "<leader>l", ":Lazy<CR>", opts)
@@ -53,3 +55,17 @@ map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 
 --lazygit
 map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>lazygit<CR>", opts)
+
+
+
+M = {}
+M.HandleURL = function()
+  local url = string.match(vim.fn.getline("."), "[a-z]+://[^%s%]%}%)\"'>,;]+")
+  if url ~= "" then
+    vim.cmd('exec "!open \'' .. url .. '\'"')
+  else
+    vim.cmd('echo "No URI found in line."')
+  end
+end
+
+vim.api.nvim_set_keymap("n", "<leader>x", [[ <Cmd>lua M.HandleURL()<CR> ]], {})

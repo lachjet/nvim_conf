@@ -22,6 +22,8 @@ return {
 				vim.fn.jobstart({ "zathura", path }, { detach = true })
 			elseif path:match("%.png$") or path:match("%.jpg$") or path:match("%.jpeg$") or path:match("%.gif$") then
 				vim.fn.jobstart({ "sxiv", path }, { detach = true })
+			elseif path:match("%.odt") or path:match("%.doc") or path:match("%.docx") then
+				vim.fn.jobstart({ "libreoffice", path}, { detach = true })
 			elseif path:match("%.html$") then
 				vim.cmd("FloatermNew --title=preview.html --width=150 --height=50 w3m " .. path)
 			else
