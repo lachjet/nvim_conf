@@ -9,24 +9,17 @@ return {
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
+		local file_utils = require("config.file-to-application")
+
 
 		local function custom_file_opener(prompt_bufnr)
 			local entry = action_state.get_selected_entry()
-			local path = entry.path or entry[1] -- fallback in case `path` is nil
-
+			local path = entry.path or entry[1]
 			if not path then return end
 
 			actions.close(prompt_bufnr)
 
-			if path:match("%.pdf$") then
-				vim.fn.jobstart({ "zathura", path }, { detach = true })
-			elseif path:match("%.png$") or path:match("%.jpg$") or path:match("%.jpeg$") or path:match("%.gif$") then
-				vim.fn.jobstart({ "sxiv", path }, { detach = true })
-			elseif path:match("%.odt") or path:match("%.doc") or path:match("%.docx") then
-				vim.fn.jobstart({ "libreoffice", path}, { detach = true })
-			elseif path:match("%.html$") then
-				vim.cmd("FloatermNew --title=preview.html --width=150 --height=50 w3m " .. path)
-			else
+			if not file_utils.open_file(path) then
 				vim.cmd("edit " .. vim.fn.fnameescape(path))
 			end
 		end

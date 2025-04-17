@@ -14,6 +14,8 @@ return {
 		-- fill any relevant options here
 	},
 	config = function()
+		local file_utils = require("config.file-to-application")
+
 		-- NeoTree configuration to show hidden files
 		require("neo-tree").setup({
 			filesystem = {
@@ -27,15 +29,7 @@ return {
 						["<CR>"] = function(state)
 							local node = state.tree:get_node()
 							local path = node:get_id()
-							if path:match("%.pdf$") then
-								vim.fn.jobstart({ "zathura", path }, { detach = true })
-							elseif path:match("%.png$") or path:match("%.jpg") or path:match("%.jpeg") or path:match("%.gif") then
-								vim.fn.jobstart({ "sxiv", path }, {detach = true})
-							elseif path:match("%.html") then
-							    vim.cmd("FloatermNew --title=preview.html --width=150 --height=50 w3m " .. path)
-							elseif path:match("%.odt") or path:match("%.doc") or path:match("%.docx") then
-								vim.fn.jobstart({"libreoffice", path }, {detach = true})
-							else
+							if not file_utils.open_file(path) then
 								require("neo-tree.sources.filesystem.commands").open(state)
 							end
 						end,
