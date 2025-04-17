@@ -40,6 +40,14 @@ return {
 					},
 				},
 			},
+			layout_config = {
+				horizontal = {
+					preview_cutoff = 0,
+				},
+				vertical = {
+					preview_cutoff = 0,
+				},
+			},
 			extensions = {
 				media_files = {
 					filetypes = { "png", "jpg", "jpeg", "pdf", "gif", "html" },
@@ -47,7 +55,6 @@ return {
 				},
 			},
 		})
-
 		telescope.load_extension("media_files")
 	end,
 }
