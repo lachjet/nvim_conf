@@ -14,13 +14,20 @@ return {
 
 		local function custom_file_opener(prompt_bufnr)
 			local entry = action_state.get_selected_entry()
-			local path = entry.path or entry[1]
+			local path = entry.path or entry.filename or entry[1]
+			local lnum = entry.lnum
 			if not path then return end
 
 			actions.close(prompt_bufnr)
 
 			if not file_utils.open_file(path) then
 				vim.cmd("edit " .. vim.fn.fnameescape(path))
+			end
+
+			if lnum then
+				vim.schedule(function()
+					vim.api.nvim_win_set_cursor(0, { lnum, 0 })
+				end)
 			end
 		end
 
