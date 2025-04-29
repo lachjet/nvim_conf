@@ -5,7 +5,12 @@ local nmap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- Leader Key
-vim.g.mapleader = " "  -- Space as leader key
+vim.g.mapleader = " "  -- Space as leader keymap
+
+-- Functions
+local function buffer_dir()
+	return vim.fn.expand('%:p:h')
+end
 
 -- Generic Keybindings
 map("n", "<leader>/", ":noh<CR>", opts)
@@ -27,8 +32,15 @@ map("n", "<leader>nf", ":Neotree focus<CR>", opts)
 map("n", "<leader>fo", ":Oil<CR>", opts)
 
 -- Telescope
-map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
+map("n", "<leader>fF", ":Telescope find_files<CR>", opts)
+map("n", "<leader>fG", ":Telescope live_grep<CR>", opts)
+map("n", "<leader>ff", function()
+	require('telescope.builtin').find_files({ cwd = buffer_dir() })
+end, opts)
+
+map("n", "<leader>fg", function()
+	require('telescope.builtin').live_grep({ cwd = buffer_dir() })
+end, opts)
 map("n", "<leader>ft", ":Telescope <CR>", opts)
 map("n", "<leader>fm", ":Telescope media_files<CR>", opts)
 map("n", "<leader>fl", ":Telescope current_buffer_fuzzy_find<CR>", opts)
