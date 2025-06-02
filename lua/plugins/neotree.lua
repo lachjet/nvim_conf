@@ -23,6 +23,22 @@ local function get_last_non_neotree_win()
   return last_non_neotree_win
 end
 
+local function open_file_split(state, split_cmd)
+  local node = state.tree:get_node()
+  if node and node.path then
+    local selected_file = node.path
+
+    vim.cmd("Neotree close")
+    vim.cmd(split_cmd .. " " .. vim.fn.fnameescape(selected_file))
+
+    vim.defer_fn(function()
+      vim.cmd("Neotree")
+    end, 50)
+  else
+    vim.notify("No file selected to open.", vim.log.levels.WARN)
+  end
+end
+
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
@@ -59,7 +75,7 @@ return {
 							end
 						end,
 						["<leader>p"] = "image_wezterm",
-						["D"] = "diff_with_current"
+						["D"] = "diff_with_current",
 					},
 				},
 				commands = {
@@ -73,6 +89,7 @@ return {
 						local node = state.tree:get_node()
 						if node and node.path then
 							local selected_file = node.path
+
 							local last_win = get_last_non_neotree_win()
 
 							if not last_win then
@@ -80,7 +97,10 @@ return {
 								return
 							end
 
-							-- Open selected file in vertical split (this becomes current window)
+							vim.cmd("Neotree close")
+
+							-- Open selected file in vertical split (this becomes current window
+							-- )
 							vim.cmd("vert split " .. vim.fn.fnameescape(selected_file))
 							vim.cmd("diffthis")  -- mark new split for diff
 
@@ -88,11 +108,12 @@ return {
 							vim.api.nvim_set_current_win(last_win)
 							vim.cmd("diffthis")  -- mark last buffer window for diff
 
+							vim.cmd("Neotree")
+
 						else
 							vim.notify("No file selected for diffing.", vim.log.levels.WARN)
 						end
-					end
-
+					end,
 				},
 				follow_current_file = {
 					enabled = true,
