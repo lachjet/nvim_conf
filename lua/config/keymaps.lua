@@ -69,9 +69,18 @@ map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 --lazygit
 map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>lazygit<CR>", opts)
 
+
 --buffer navigation
 map("n", "<leader>bb", ":b#<CR>", opts)
 
+-- Diffview bindings
+map("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Open" })
+map("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Diffview: Close" })
+map("n", "<leader>df", "<cmd>DiffviewFileHistory<CR>", { desc = "Diffview: File History" })
+map("n", "<leader>dr", "<cmd>DiffviewRefresh<CR>", { desc = "Diffview: Refresh" })
+
+-- diff off
+map("n", "<leader>dx", ":windo diffoff<CR>", { desc = "Turn off diff mode" })
 
 M = {}
 M.HandleURL = function()
