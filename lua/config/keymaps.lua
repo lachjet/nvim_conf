@@ -69,6 +69,8 @@ map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 --lazygit
 map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>lazygit<CR>", opts)
 
+--buffer navigation
+map("n", "<leader>bb", ":b#<CR>", opts)
 
 
 M = {}
