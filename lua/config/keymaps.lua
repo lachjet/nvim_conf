@@ -69,6 +69,10 @@ map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 --lazygit
 map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>lazygit<CR>", opts)
 
+
+--buffer navigation
+map("n", "<leader>bb", ":b#<CR>", opts)
+
 -- Diffview bindings
 map("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Open" })
 map("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Diffview: Close" })
