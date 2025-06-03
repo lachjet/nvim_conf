@@ -82,6 +82,16 @@ map("n", "<leader>dr", "<cmd>DiffviewRefresh<CR>", { desc = "Diffview: Refresh" 
 -- diff off
 map("n", "<leader>dx", ":windo diffoff<CR>", { desc = "Turn off diff mode" })
 
+-- Tab Actions under <leader>tt
+map("n", "<leader>ttn", ":tabnew<CR>", { desc = "New Tab" })         -- New Tab
+map("n", "<leader>ttc", ":tabclose<CR>", { desc = "Close Tab" })     -- Close Tab
+map("n", "<leader>tto", ":tabonly<CR>", { desc = "Close Other Tabs" }) -- Close all other tabs
+map("n", "<leader>ttl", ":tabnext<CR>", { desc = "Next Tab" })       -- Tab → Next
+map("n", "<leader>tth", ":tabprevious<CR>", { desc = "Previous Tab" }) -- Tab → Prev
+for i = 1, 9 do
+  map("n", "<leader>tt" .. i, ":tabnext " .. i .. "<CR>", { desc = "Go to Tab " .. i })
+end
+
 M = {}
 M.HandleURL = function()
   local url = string.match(vim.fn.getline("."), "[a-z]+://[^%s%]%}%)\"'>,;]+")
