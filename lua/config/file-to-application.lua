@@ -10,6 +10,7 @@ M.file_applications = {
     odt = "libreoffice",
     doc = "libreoffice",
     docx = "libreoffice",
+	ioc = "cubemx"
 }
 
 -- Special handlers for formats needing more customization

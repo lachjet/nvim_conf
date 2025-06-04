@@ -1,0 +1,9 @@
+CompileFlags:
+  CompilationDatabase: build
+  Add: 
+    - "-I/usr/lib/arm-none-eabi/include"
+    - "-I/usr/lib/gcc/arm-none-eabi/10.3.1/include"
+    - "-I/usr/lib/gcc/arm-none-eabi/10.3.1/include-fixed"
+    - "--target=arm-none-eabi"
+  Remove: 
+    - "-mthumb-interwork"
