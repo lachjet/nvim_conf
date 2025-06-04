@@ -74,14 +74,23 @@ return {
 			end)
 		end
 
-		-- neocmake 
-		lspconfig.neocmake.setup({
-			cmd = { "neocmakelsp", "stdio" },
-			filetypes = { "cmake" },
-			root_dir = and_root_dir,
-			on_attach = on_attach,
-			capabilities = capbts,
-		})
+		if not lspconfig.neocmake then
+			lspconfig.neocmake = {
+				default_config = {
+					cmd = vim.lsp.rpc.connect('127.0.0.1', '9257'),
+					filetypes = { "cmake" },
+					root_dir = and_root_dir,
+					single_file_support = true,
+					on_attach = on_attach,
+					capabilities = capbts,
+					init_options = {
+						format = { enable = true },
+					},
+				},
+			}
+		end
+
+		lspconfig.neocmake.setup({})
 
 		-- Lua language server
 		lspconfig.lua_ls.setup({
