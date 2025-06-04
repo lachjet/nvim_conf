@@ -63,6 +63,7 @@ map("n", "<leader>tn", ":FloatermNew<CR>", opts)
 map("n", "<leader>ts", ":FloatermShow<CR>", opts)
 map("t", "<C-t>k", "<C-\\><C-n>:FloatermKill<CR>", opts)
 map("t", "<C-t>n", "<C-\\><C-n>:FloatermNext<CR>", opts)
+map("t", "<C-t>b", "<C-\\><C-n>:FloatermPrev<CR>", opts)
 map("t", "<C-t>h", "<C-\\><C-n>:FloatermHide<CR>", opts)
 map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 

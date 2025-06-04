@@ -52,7 +52,7 @@ return {
 		lspconfig.clangd.setup({
 			on_attach  = on_attach,
 			capabilities = capbts,
-			cmd        = { 'clangd', '--background-index' },
+			cmd        = { 'clangd', '--background-index', '--enable-config' },
 			filetypes  = { 'c', 'cpp', 'objc', 'objcpp' },
 			root_dir   = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git'),
 		})

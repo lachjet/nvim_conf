@@ -76,6 +76,14 @@ return {
 						end,
 						["<leader>p"] = "image_wezterm",
 						["D"] = "diff_with_current",
+						["P"] = {
+							"toggle_preview",
+							config = {
+								use_float = false,
+								-- use_image_nvim = true,
+								-- title = 'Neo-tree Preview',
+							},
+						},
 					},
 				},
 				commands = {
