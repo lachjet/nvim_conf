@@ -48,7 +48,7 @@ return {
 			buf_map(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 			buf_map(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 		end
-		-- clangd setup: points at your compile_commands.json or compile_flags.txt
+
 		lspconfig.clangd.setup({
 			on_attach  = on_attach,
 			capabilities = capbts,
@@ -59,7 +59,28 @@ return {
 				'--compile-commands-dir=build',
 			},
 			filetypes  = { 'c', 'cpp', 'objc', 'objcpp' },
-			root_dir   = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git'),
+			root_dir   = lspconfig.util.root_pattern('.clangd'),
+		})
+
+		-- We want the root directory for neocmake to have BOTH a .clangd file 
+		-- and a MakeLists.txt file
+		local function and_root_dir(fname)
+			return lspconfig.util.search_ancestors(fname, function(path)
+				local has_clangd = lspconfig.util.path.is_file(lspconfig.util.path.join(path, ".clangd"))
+				local has_cmake  = lspconfig.util.path.is_file(lspconfig.util.path.join(path, "CMakeLists.txt"))
+				if has_clangd and has_cmake then
+					return path
+				end
+			end)
+		end
+
+		-- neocmake 
+		lspconfig.neocmake.setup({
+			cmd = { "neocmakelsp", "stdio" },
+			filetypes = { "cmake" },
+			root_dir = and_root_dir,
+			on_attach = on_attach,
+			capabilities = capbts,
 		})
 
 		-- Lua language server
