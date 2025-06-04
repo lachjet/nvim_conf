@@ -30,7 +30,7 @@ return {
 			-- Open code action menu
 			buf_map(bufnr, 'n', "<Leader>c", "<cmd>lua vim.lsp.buf.code_action({apply = false})<CR>", opts)
 
-			-- Navigate diagnostics
+
 			-- Navigate diagnostics
 			buf_map(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 			buf_map(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
@@ -44,9 +44,7 @@ return {
 				opts
 			)
 
-			-- Navigate between diagnostics (they’re still “in the background”)
-			buf_map(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-			buf_map(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+
 		end
 
 		lspconfig.clangd.setup({
@@ -81,6 +79,7 @@ return {
 					filetypes = { "cmake" },
 					root_dir = and_root_dir,
 					single_file_support = true,
+					enable_external_cmake_lint = true;
 					on_attach = on_attach,
 					capabilities = capbts,
 					init_options = {
