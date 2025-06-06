@@ -7,6 +7,8 @@ vim.cmd("set softtabstop=4");
 vim.cmd("set mouse=a");
 vim.cmd("set rnu");
 
+vim.cmd("highlight LineNr       guifg=#5c6370 guibg=NONE")
+vim.cmd("highlight CursorLineNr guifg=#98c379 guibg=NONE")
 
 vim.g.clipboard = {                 
     name = "xsel",

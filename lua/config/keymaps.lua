@@ -32,13 +32,13 @@ map("n", "<leader>nf", ":Neotree focus<CR>", opts)
 map("n", "<leader>fo", ":Oil<CR>", opts)
 
 -- Telescope
-map("n", "<leader>fF", ":Telescope find_files<CR>", opts)
-map("n", "<leader>fG", ":Telescope live_grep<CR>", opts)
-map("n", "<leader>ff", function()
+map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
+map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
+map("n", "<leader>fF", function()
 	require('telescope.builtin').find_files({ cwd = buffer_dir() })
 end, opts)
 
-map("n", "<leader>fg", function()
+map("n", "<leader>fG", function()
 	require('telescope.builtin').live_grep({ cwd = buffer_dir() })
 end, opts)
 map("n", "<leader>ft", ":Telescope <CR>", opts)
