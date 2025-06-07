@@ -68,8 +68,6 @@ return {
 			math.randomseed(os.time()) -- seed once
 			local quote = quotes[math.random(#quotes)]
 
-
-
 			dashboard.section.footer.val = quote
 			dashboard.section.buttons.val = {
 				dashboard.button("ff", " Find File", ":Telescope find_files<CR>"),
@@ -78,6 +76,8 @@ return {
 				dashboard.button("fb", " File Browser", ":Neotree toggle float<CR>"),
 				dashboard.button("cs", " Colorschemes", ":Telescope colorscheme<CR>"),
 				dashboard.button("nf", " New File", ":enew<CR>"),
+				dashboard.button("<leader>m", "󱁍 Toggle Menu", ":Alpha<CR>"),
+				dashboard.button("<leader>b", "󰜉 Open Previous Buffer", ":b#<CR>"),
 				dashboard.button("q", " Quit", ":qa<CR>"),
 				dashboard.button("rq","  Regenerate Quote (Broken)",  vim.api.nvim_create_user_command("AlphaQuote", function()
 					dashboard.section.footer.val = get_random_quote()

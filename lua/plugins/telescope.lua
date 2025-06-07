@@ -20,6 +20,11 @@ return {
 
 			actions.close(prompt_bufnr)
 
+			if type(path) ~= "string" or path == "" then
+				print("Invalid path: " .. tostring(path))
+				return
+			end
+
 			if not file_utils.open_file(path) then
 				vim.cmd("edit " .. vim.fn.fnameescape(path))
 			end

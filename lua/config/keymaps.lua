@@ -24,6 +24,9 @@ map("v", "<C-c>", '"+y', opts)
 map({"n", "i"}, "<C-p>", '"+p', opts)
 map("i", "<C-S-v>", "<C-r>+", opts)
 
+-- Alpha
+map("n", "<leader>m", ":Alpha<CR>", {desc = "Menu"})
+
 -- Neotree
 map("n", "<leader>nt", ":Neotree toggle left<CR>", opts)
 map("n", "<leader>nf", ":Neotree focus<CR>", opts)
