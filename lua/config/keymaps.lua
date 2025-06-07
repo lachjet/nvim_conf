@@ -25,8 +25,9 @@ map({"n", "i"}, "<C-p>", '"+p', opts)
 map("i", "<C-S-v>", "<C-r>+", opts)
 
 -- Neotree
-map("n", "<leader>nt", ":Neotree toggle=true<CR>", opts)
+map("n", "<leader>nt", ":Neotree toggle left<CR>", opts)
 map("n", "<leader>nf", ":Neotree focus<CR>", opts)
+map("n", "<leader>ne", ":Neotree toggle float<CR>", { desc = "Floating File Explorer" })
 
 -- Oil
 map("n", "<leader>fo", ":Oil<CR>", opts)

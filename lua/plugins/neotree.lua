@@ -52,7 +52,13 @@ return {
 	---@module "neo-tree"
 	---@type neotree.Config?
 	opts = {
-		-- fill any relevant options here
+		event_handlers = {
+			event = "neo_tree_buffer_enter",
+			handler = function(args)
+				vim.opt_local.number = true
+				vim.opt_local.relativenumber = true
+			end,
+		}
 	},
 	config = function()
 		local file_utils = require("config.file-to-application")
@@ -60,20 +66,9 @@ return {
 		-- NeoTree configuration to show hidden files
 		require("neo-tree").setup({
 			filesystem = {
-				filtered_items = {
-					visible = true,          -- Show filtered files
-					hide_dotfiles = false,   -- Don't hide dotfiles
-					hide_gitignore = false,  -- Optionally disable hiding files listed in .gitignore
-				},
 				window = {
 					mappings = {
-						["<CR>"] = function(state)
-							local node = state.tree:get_node()
-							local path = node:get_id()
-							if not file_utils.open_file(path) then
-								require("neo-tree.sources.filesystem.commands").open(state)
-							end
-						end,
+						["<CR>"] = "open_selected",
 						["<leader>p"] = "image_wezterm",
 						["D"] = "diff_with_current",
 						["P"] = {
@@ -84,16 +79,33 @@ return {
 								-- title = 'Neo-tree Preview',
 							},
 						},
+						["L"] = function(state)
+							vim.cmd("set relativenumber")
+						end,
 					},
 				},
 				commands = {
+					open_selected = function(state)
+							local node = state.tree:get_node()
+							local path = node:get_id()
+							vim.opt_local.number = true
+							vim.opt_local.relativenumber = true
+
+							if node.type == "directory" then
+								vim.cmd("cd " .. vim.fn.fnameescape(path))
+							elseif not require("config.file-to-application").open_file(path) then
+								require("neo-tree.sources.filesystem.commands").open(state)
+							end
+						end,
 					image_wezterm = function(state)
+						vim.cmd("set relativenumber")
 						local node = state.tree:get_node()
 						if node.type == "file" then
 							require("image_preview").PreviewImage(node.path)
 						end
 					end,
 					diff_with_current = function(state)
+						vim.cmd("set relativenumber")
 						local node = state.tree:get_node()
 						if node and node.path then
 							local selected_file = node.path
