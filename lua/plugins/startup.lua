@@ -180,10 +180,8 @@ return {
 							if not alpha_found then
 								-- If there's a modified buffer still in memory, go back to it
 								if fallback_buf then
-									print("Fallback")
 									vim.api.nvim_set_current_buf(fallback_buf)
 								else
-									print("Alpha")
 									alpha.start(true)
 								end
 							end
