@@ -69,7 +69,7 @@ map("t", "<C-t>h", "<C-\\><C-n>:FloatermHide<CR>", opts)
 map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 
 --lazygit
-map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>lazygit<CR>", opts)
+map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 bash -c 'lazygit'; exit<CR>", opts)
 
 
 --buffer navigation
