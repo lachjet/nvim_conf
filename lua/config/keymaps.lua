@@ -87,7 +87,31 @@ vim.api.nvim_create_user_command("CDToFile", function()
   print("Changed directory to: " .. dir)
 end, {})
 
-map("n", "<leader>cd", "<cmd>CDToFile<CR>", {desc = "cd to current file's directory"})
+
+vim.api.nvim_create_user_command("CDToProjectRoot", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_active_clients({bufnr = bufnr})
+  local client = clients[1]
+
+  if not client then
+    print("No active LSP client found for this buffer.")
+    return
+  end
+
+  local root_dir = client.config.root_dir
+  if not root_dir then
+    print("LSP client has no root directory.")
+    return
+  end
+
+  vim.cmd("cd " .. root_dir)
+  print("Changed directory to LSP root: " .. root_dir)
+end, {})
+
+map("n", "<leader>cdf", "<cmd>CDToFile<CR>", {desc = "cd to current file's directory"})
+map("n", "<leader>cdh", ":cd ~<CR>", {desc = "cd to home directory"})
+map("n", "<leader>cdm", ":cd /<CR>", {desc = "cd to mount point"})
+map("n", "<leader>cdp", "<cmd>CDToProjectRoot<CR>", { desc = "cd to project root directory" })
 
 -- Diffview bindings
 map("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Open" })
