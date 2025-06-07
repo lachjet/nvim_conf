@@ -75,6 +75,20 @@ map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 <CR>
 --buffer navigation
 map("n", "<leader>bb", ":b#<CR>", opts)
 
+-- nvim current dir
+vim.api.nvim_create_user_command("CDToFile", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  if file == "" then
+    print("No file loaded.")
+    return
+  end
+  local dir = vim.fn.fnamemodify(file, ":p:h")
+  vim.cmd("cd " .. dir)
+  print("Changed directory to: " .. dir)
+end, {})
+
+map("n", "<leader>cd", "<cmd>CDToFile<CR>", {desc = "cd to current file's directory"})
+
 -- Diffview bindings
 map("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Open" })
 map("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Diffview: Close" })
