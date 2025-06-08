@@ -16,7 +16,7 @@ local dragon_asci = {
 				"           `.\\`.\\  `_.-..' ,'   _,-..'  /..,-''(, ,' ; ( _______`___..'__",
 				"                   ((,(,__(    ((,(,__,'  ``'-- `'`.(\\  `.,..______   SSt",
 				"                                                      ``--------..._``--.__",
-				"Welcome to Neovim, Weary Traveler, Hope your coding journey goes smoothly."
+				"Welcome to Neovim, Weary Traveler. I Hope your coding journey goes smoothly."
 }
 
 local quotes = {
