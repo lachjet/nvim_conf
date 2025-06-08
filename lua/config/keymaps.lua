@@ -28,9 +28,9 @@ map("i", "<C-S-v>", "<C-r>+", opts)
 map("n", "<leader>m", ":Alpha<CR>", {desc = "Menu"})
 
 -- Neotree
-map("n", "<leader>nt", ":Neotree toggle left<CR>", opts)
-map("n", "<leader>nf", ":Neotree focus<CR>", opts)
-map("n", "<leader>ne", ":Neotree toggle float<CR>", { desc = "Floating File Explorer" })
+map("n", "<leader>nt", ":Neotree toggle left<CR>:set relativenumber<CR>", opts)
+map("n", "<leader>nf", ":Neotree focus<CR>:set relativenumber<CR>", opts)
+map("n", "<leader>ne", ":Neotree toggle float<CR>:set relativenumber<CR>", { desc = "Floating File Explorer" })
 
 -- Oil
 map("n", "<leader>fo", ":Oil<CR>", opts)

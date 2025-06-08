@@ -63,22 +63,31 @@ return {
 			dashboard.section.header.val = dragon_asci;
 
 
-
-
 			math.randomseed(os.time()) -- seed once
 			local quote = quotes[math.random(#quotes)]
+
+			-- leader<m> should act like <leader>b (:#b) when there is a previous buffer
+			-- otherwise if not it should act like nf (":enew")
+			vim.api.nvim_create_user_command("SmartMenuToggle", function()
+				local alt_buf = vim.fn.bufnr("#")
+				if alt_buf > 0 and vim.fn.bufexists(alt_buf) == 1 and vim.fn.buflisted(alt_buf) == 1 then
+					vim.cmd("b#")
+				else
+					vim.cmd("enew")
+				end
+			end, {})
 
 			dashboard.section.footer.val = quote
 			dashboard.section.buttons.val = {
 				dashboard.button("ff", " Find File", ":Telescope find_files<CR>"),
 				dashboard.button("lg", "󰍉 Find Word", ":Telescope live_grep<CR>"),
 				dashboard.button("of", " Recent Files", ":Telescope oldfiles<CR>"),
-				dashboard.button("fb", " File Browser", ":Neotree toggle float<CR>"),
+				dashboard.button("fb", " File Browser", ":Neotree toggle float<CR>:set relativenumber<CR>"),
 				dashboard.button("cs", " Colorschemes", ":Telescope colorscheme<CR>"),
 				dashboard.button("nf", " New File", ":enew<CR>"),
-				dashboard.button("<leader>m", "󱁍 Toggle Menu", ":Alpha<CR>"),
+				dashboard.button("<leader>m", "󱁍 Toggle Menu", ":SmartMenuToggle<CR>"),
 				dashboard.button("<leader>b", "󰜉 Open Previous Buffer", ":b#<CR>"),
-				dashboard.button("q", " Quit", ":qa<CR>"),
+				dashboard.button("q", " Quit", ":q<CR>"),
 				dashboard.button("rq","  Regenerate Quote (Broken)",  vim.api.nvim_create_user_command("AlphaQuote", function()
 					dashboard.section.footer.val = get_random_quote()
 					require("alpha").setup(dashboard.opts)
@@ -132,13 +141,28 @@ return {
 			-- Override :q to close buffer or quit only if on Alpha
 			-- Override :Quit to conditionally quit or buffer delete
 			vim.api.nvim_create_user_command("QuitAll", function(opts)
-				if vim.bo.filetype == "alpha" then
+				local alpha_open = vim.bo.filetype == "alpha"
+
+				local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+				local other_buffers = vim.tbl_filter(function(buf)
+					return buf.name ~= "" and buf.loaded and vim.api.nvim_buf_get_option(buf.bufnr, "filetype") ~= "alpha"
+				end, bufs)
+
+				if alpha_open and #other_buffers > 0 then
+					-- Close all other buffers and reload Alpha
+					for _, buf in ipairs(other_buffers) do
+						pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = opts.bang })
+					end
+					require("alpha").start(true)
+				elseif alpha_open then
+					-- If only Alpha is open, proceed with actual quit
 					if opts.bang then
 						vim.cmd("qa!")
 					else
 						vim.cmd("qa")
 					end
 				else
+					-- Not on Alpha, standard quit all behavior
 					if opts.bang then
 						vim.cmd("bufdo bd!")
 					else
