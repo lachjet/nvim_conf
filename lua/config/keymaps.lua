@@ -41,6 +41,7 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 map("n", "<leader>fF", function()
 	require('telescope.builtin').find_files({ cwd = buffer_dir() })
 end, opts)
+map("n", "<leader>fo", ":Telescope old_files<CR>", opts);
 
 map("n", "<leader>fG", function()
 	require('telescope.builtin').live_grep({ cwd = buffer_dir() })
