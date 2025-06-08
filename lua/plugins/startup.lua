@@ -107,6 +107,8 @@ return {
 				callback = function()
 					vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Quit' : 'q'")
 					vim.cmd("cnoreabbrev <expr> qa getcmdtype() == ':' && getcmdline() == 'qa' ? 'QuitAll' : 'qa'")
+					vim.cmd("cnoreabbrev <expr> wq getcmdtype() == ':' && getcmdline() == 'wq' ? 'WriteQuit' : 'wq'")
+					vim.cmd("cnoreabbrev <expr> wqa getcmdtype() == ':' && getcmdline() == 'wqa' ? 'WriteQuitAll' : 'wqa'")
 				end,
 			})
 
@@ -157,9 +159,9 @@ return {
 				elseif alpha_open then
 					-- If only Alpha is open, proceed with actual quit
 					if opts.bang then
-						vim.cmd("qa!")
+						vim.cmd("q!")
 					else
-						vim.cmd("qa")
+						vim.cmd("q")
 					end
 				else
 					-- Not on Alpha, standard quit all behavior
@@ -170,6 +172,72 @@ return {
 					end
 				end
 			end, { bang = true })
+
+			-- Basically here we define out new "Quit" to close the current buffer instead of
+			-- properly quit -- this is to ensure that if we quit the last buffer we don't 
+			-- exit nvim. Further, we need to map the force commands on the bang accordingly,
+			-- to ensure it doesn't throw a tantroom when we need to force close a buffer.
+			--
+			-- Override :q to close buffer or quit only if on Alpha
+			-- Override :Quit to conditionally quit or buffer delete
+			vim.api.nvim_create_user_command("WriteQuit", function(opts)
+				vim.cmd("w")
+				if vim.bo.filetype == "alpha" then
+					if opts.bang then
+						vim.cmd("q!")
+					else
+						vim.cmd("q")
+					end
+				else
+					if opts.bang then
+						vim.cmd("bd!")
+					else
+						vim.cmd("bd")
+					end
+				end
+			end, { bang = true })
+
+			-- Same story here as above -- however for the all version
+			-- this version will close all active buffers that it can
+			-- then the bufclose autocommand callback will catch the buffer
+			-- close and handle accordingly
+			--
+			-- Override :q to close buffer or quit only if on Alpha
+			-- Override :Quit to conditionally quit or buffer delete
+			vim.api.nvim_create_user_command("WriteQuitAll", function(opts)
+				local alpha_open = vim.bo.filetype == "alpha"
+
+				local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+				local other_buffers = vim.tbl_filter(function(buf)
+					return buf.name ~= "" and buf.loaded and vim.api.nvim_buf_get_option(buf.bufnr, "filetype") ~= "alpha"
+				end, bufs)
+
+				vim.cmd([[bufdo if &modifiable && getbufvar(bufnr('%'), '&modified') | write | endif]])
+
+				if alpha_open and #other_buffers > 0 then
+					-- Close all other buffers and reload Alpha
+					for _, buf in ipairs(other_buffers) do
+						pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = opts.bang })
+					end
+					require("alpha").start(true)
+				elseif alpha_open then
+					-- If only Alpha is open, proceed with actual quit
+					if opts.bang then
+						vim.cmd("q!")
+					else
+						vim.cmd("q")
+					end
+				else
+					-- Not on Alpha, standard quit all behavior
+					if opts.bang then
+						vim.cmd("bufdo bd!")
+					else
+						vim.cmd("bufdo bd")
+					end
+				end
+			end, { bang = true })
+
+
 
 			-- This is the autocommand callback on buffer delete
 			-- it effectively just opens Alpha if all the other buffers are closed
