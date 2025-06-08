@@ -1,5 +1,7 @@
-# nvim_conf
+# lachjet/nvim_conf
 My personal nvim conf.
+![Screenshot from 2025-06-08 12-28-19](https://github.com/user-attachments/assets/0d7b8dc6-cc9e-4fa7-9a29-dd86f9725a6c)
+
 
 ## LSP and programs
 For this config to work you will require to download the lsps manually. I decided to avoid using mason, so that the lsps can be shared by any other editor that needs them. 
