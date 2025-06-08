@@ -79,15 +79,15 @@ return {
 
 			dashboard.section.footer.val = quote
 			dashboard.section.buttons.val = {
-				dashboard.button("ff", " Find File", ":Telescope find_files<CR>"),
-				dashboard.button("lg", "󰍉 Find Word", ":Telescope live_grep<CR>"),
-				dashboard.button("of", " Recent Files", ":Telescope oldfiles<CR>"),
-				dashboard.button("fb", " File Browser", ":Neotree toggle float<CR>:set relativenumber<CR>"),
-				dashboard.button("cs", " Colorschemes", ":Telescope colorscheme<CR>"),
-				dashboard.button("nf", " New File", ":enew<CR>"),
-				dashboard.button("<leader>m", "󱁍 Toggle Menu", ":SmartMenuToggle<CR>"),
-				dashboard.button("<leader>b", "󰜉 Open Previous Buffer", ":b#<CR>"),
-				dashboard.button("q", " Quit", ":q<CR>"),
+				dashboard.button("ff", "  Find File", ":Telescope find_files<CR>"),
+				dashboard.button("lg", "󰍉  Find Word", ":Telescope live_grep<CR>"),
+				dashboard.button("of", "  Recent Files", ":Telescope oldfiles<CR>"),
+				dashboard.button("fb", "  File Browser", ":Neotree toggle float<CR>:set relativenumber<CR>"),
+				dashboard.button("cs", "  Colorschemes", ":Telescope colorscheme<CR>"),
+				dashboard.button("nf", "  New File", ":enew<CR>"),
+				dashboard.button("<leader>m", "󱁍  Toggle Menu", ":SmartMenuToggle<CR>"),
+				dashboard.button("<leader>b", "󰜉  Open Previous Buffer", ":b#<CR>"),
+				dashboard.button("q", "   Quit", ":q<CR>"),
 				dashboard.button("rq","  Regenerate Quote (Broken)",  vim.api.nvim_create_user_command("AlphaQuote", function()
 					dashboard.section.footer.val = get_random_quote()
 					require("alpha").setup(dashboard.opts)
