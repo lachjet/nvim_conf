@@ -77,7 +77,7 @@ map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 bash
 
 
 --buffer navigation
-map("n", "<leader>bb", ":b#<CR>", opts)
+map("n", "<leader>b", ":b#<CR>", opts)
 
 -- nvim current dir
 vim.api.nvim_create_user_command("CDToFile", function()
@@ -135,6 +135,13 @@ map("n", "<leader>tth", ":tabprevious<CR>", { desc = "Previous Tab" }) -- Tab â†
 for i = 1, 9 do
   map("n", "<leader>tt" .. i, ":tabnext " .. i .. "<CR>", { desc = "Go to Tab " .. i })
 end
+
+-- General Quality of life keybindings
+map("n", "<leader>q", ":Quit<CR>", {desc = "Quit the current buffer"})
+map("n", "<leader>Q", ":Quit!<CR>", {desc = "Quit the current buffer"})
+map("n", "<leader>w", ":w<CR>", {desc = "Quit the current buffer"})
+map("i", "jj", "<ESC>", { desc = "Exit Insert mode with jk" })
+map("v", "jj", "<ESC>", { desc = "Exit Visual mode with jk" })
 
 M = {}
 M.HandleURL = function()

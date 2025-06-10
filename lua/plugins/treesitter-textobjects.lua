@@ -226,7 +226,6 @@ return {
 							node_incremental = "grn",
 							scope_incremental = "grs",
 							node_decremental = "grm",
-							scope_decremental = "grd",
 						},
 					},
 				}

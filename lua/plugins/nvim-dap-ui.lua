@@ -125,7 +125,7 @@ return {
       { desc = "DAP: Step Into" })
     vim.keymap.set("n", "<Leader>zd", function() dap.step_out() end,
       { desc = "DAP: Step Out" })
-    vim.keymap.set("n", "<Leader>b", function() dap.toggle_breakpoint() end,
+    vim.keymap.set("n", "<Leader>zb", function() dap.toggle_breakpoint() end,
       { desc = "DAP: Toggle Breakpoint" })
     vim.keymap.set("n", "<Leader>zt", function() dap.terminate() end,
       { desc = "DAP: Terminate" })
