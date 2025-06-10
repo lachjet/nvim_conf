@@ -10,8 +10,8 @@ vim.cmd("set rnu");
 vim.cmd("highlight LineNr       guifg=#5c6370 guibg=NONE")
 vim.cmd("highlight CursorLineNr guifg=#98c379 guibg=NONE")
 
-vim.g.clipboard = {                 
-    name = "xsel",
+vim.g.clipboard = {
+	name = "xsel",
     copy = {
         ["+"] = "xsel --nodetach -ib",
         ["*"] = "xsel --nodetach -ip"

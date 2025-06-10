@@ -1,7 +1,7 @@
 -- Keybindings Config (lua/config/keymaps.lua)
 
 local map = vim.keymap.set
-local nmap = vim.api.nvim_set_keymap
+local nmap = map
 local opts = { noremap = true, silent = true }
 
 -- Leader Key
@@ -146,4 +146,4 @@ M.HandleURL = function()
   end
 end
 
-vim.api.nvim_set_keymap("n", "<leader>x", [[ <Cmd>lua M.HandleURL()<CR> ]], {})
+map("n", "<leader>x", [[ <Cmd>lua M.HandleURL()<CR> ]], {})
