@@ -1,5 +1,5 @@
-# lachjet/nvim_conf
-My personal nvim conf.
+# lachjet/nvim_conf (OpenBSD)
+Neovim Config for OpenBSD
 ![Screenshot from 2025-08-24 09-33-51](https://raw.githubusercontent.com/lachjet/nvim_conf/refs/heads/OpenBSD/images/Screenshot%20from%202025-08-24%2009-33-51.png)
 
 
