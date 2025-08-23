@@ -1,54 +1,61 @@
 -- ~/.config/nvim/lua/plugins/startup.lua
-local dragon_asci = {
-				"														____________",
-				"  _   ___     _____ __  __      (`-..________....---''  ____..._.-`",
-				" | \\ | \\ \\   / /_ _|  \\/  |     \\\\`._______.._,.---'''     ,'",
-				" |  \\| |\\ \\ / / | || |\\/| |     ; )`.      __..-'`-.      /",
-				" | |\\  | \\ V /  | || |  | |     / /     _.-' _,.;;._ `-._,'",
-				" |_| \\_|  \\_/  |___|_|  |_|    / /   ,-' _.-'  //   ``--._``._",
-				"                              ,','_.-' ,-' _.- (( =-    -. `-._`-._____",
-				"                           ,;.''__..-'   _..--.\\\\.--'````--.._``-.`-._`.",
-				"             _          |\\,' .-''        ```-'`---'`-...__,._  ``-.`-.`-.`.",
-				"  _     _.-,'(__)\\__)\\-'' `     ___  .          `     \\      `--._",
-				",',)---' /|)          `     `      ``-.   `     /     /     `     `-.",
-				"\\_____--.  '`  `               __..-.  \\     . (   < _...-----..._   `.",
-				" \\_,--..__. \\\\ .-`.\\----'';``,..-.__ \\  \\      ,`_. `.,-'`--'`---''`.  )",
-				"           `.\\`.\\  `_.-..' ,'   _,-..'  /..,-''(, ,' ; ( _______`___..'__",
-				"                   ((,(,__(    ((,(,__,'  ``'-- `'`.(\\  `.,..______   SSt",
-				"                                                      ``--------..._``--.__",
-				"Welcome to Neovim, Weary Traveler. I Hope your coding journey goes smoothly."
+local puffy_ascii = {
+  "                            A       ;",
+  "                  |   ,--,-/ \\---,-/|  ,",
+  "                 _|,\\,'. /|      /|   `/|-.",
+  "             \\`.'    /|      ,            `;.",
+  "            ,'\\   A     A         A   A _ /| `.;",
+  "          ,/  _              A       _  / _   /|  ;",
+  "         /\\  / \\   ,  ,           A  /    /     `/|",
+  "        /_| | _ \\         ,     ,             ,/  \\",
+  "       // | |/ `.\\  ,-      ,       ,   ,/ ,/      \\/",
+  "       / @| |@  / /'   \\  \\      ,              >  /|    ,--.",
+  "      |\\_/   \\_/ /      |  |           ,  ,/        \\  ./' __:..",
+  "      |  __ __  |       |  | .--.  ,         >  >   |-'   /     `",
+  "    ,/| /  '  \\ |       |  |     \\      ,           |    /",
+  "   /  |<--.__,->|       |  | .    `.        >  >    /   (",
+  "  /_,' \\\\  ^  /  \\     /  /   `.    >--            /^\\   |",
+  "        \\\\___/    \\   /  /      \\__'     \\   \\   \\/   \\  |",
+  "         `.   |/          ,  ,                  /`\\    \\  )",
+  "           \\  '  |/    ,       V    \\          /        `-\\",
+  "            `|/  '  V      V           \\    \\.'            \\_",
+  "             '`-.       V       V        \\./'\\",
+  "                 `|/-.      \\ /   \\ /,---`\\         kat",
+  "                  /   `._____V_____V'",
+  "                             '     '",
+  "",
+  "         Welcome to Neovim on OpenBSD.",
+  "				\"The Most Secure OS in the World\"",
 }
 
-local quotes = {
-	"\"Even the smallest person can change the course of the future.\" – Galadriel",
-	"\"A wizard is never late, nor is he early. He arrives precisely\n when he means to.\" – Gandalf",
-	"\"Courage need not be remembered, for it is never forgotten.\" – Zelda",
-	"\"The man who passes the sentence should swing the sword.\" – Eddard Stark",
-	"\"Fear cuts deeper than swords.\" – Arya Stark",
-	"\"Valar morghulis.\" – Jaqen H'ghar",
-	"\"The road goes ever on and on.\" – Bilbo Baggins",
-	"\"There is always hope.\" – Aragorn",
-	"\"In the end, we only regret the chances we didn’t take.\" – Dwarven proverb",
-	"\"Faithless is he that says farewell when the road darkens.\" – Gimli",
-	"\"Do not pity the dead, Harry. Pity the living, and above all, \n those who live without love.\" – Dumbledore",
-	"\"May your blade never dull.\" – Witcher saying",
-	"\"The cake is a lie.\" – Portal (not medieval, but a cult classic twist quote)",
-	"\"You mustn’t be afraid to dream a little bigger, darling.\" \n– Inception (fantasy-themed mindset)",
-	"\"All we have to decide is what to do with the time that is given\n to us.\" – Gandalf",
-	"\"Bravery is not the absence of fear, but the will to overcome it.\"\n – Knight’s Creed",
-	"\"Speak, friend, and enter.\" – Inscription on the Doors of Durin",
-	"\"Magic is believing in yourself. If you can do that, you can\n make anything happen.\" – Goethe",
-	"\"Do not go gentle into that good night.\" \n – Dylan Thomas (often quoted in fantasy tone)",
-	"\"The only way to do the impossible is to believe it is possible.\"\n – Alice in Wonderland",
-	"\"No man can kill me.\" – Witch-King of Angmar",
-	"\"One voice can change the world.\" – Eragon",
-	"\"The night is dark and full of terrors.\" – Melisandre",
-	"\"I am the sword in the darkness.\" – The Night’s Watch Oath",
-	"\"Winter is coming.\" – House Stark",
-	"\"Honor is not in a name. It's in the actions we take.\" – Unknown knight",
-	"\"That still only counts as one! – Gimli, *The Lord of the Rings*",
-	"\"Dovahkiin, Dovahkiin naal ok zin los vahriin\nWahdein vokul mahfaeraak ast vaal\" – The Dragonborn Comes (Skyrim)",
+local obsd_quotes = {
+  "\"What is despair? I have known it—hear my song.\nDespair is when you’re debugging a kernel driver\nand you look at a memory dump and you see that a pointer has a value of 7.\nTHERE IS NO HARDWARE ARCHITECTURE THAT IS ALIGNED ON 7.\nFurthermore, 7 IS TOO SMALL AND ONLY EVIL CODE WOULD TRY TO ACCESS SMALL NUMBER MEMORY.\" – James Mickens",
+
+  "\"I have a network file system, and I have broken the network,\nand I have broken the file system, and my machines crash\nwhen I make eye contact with them.\" – James Mickens",
+
+  "\"I HAVE NO TOOLS BECAUSE I’VE DESTROYED MY TOOLS WITH MY TOOLS.\nMy only logging option is to hire monks to transcribe the subjective experience\nof watching my machines die as I weep tears of blood.\" – James Mickens",
+
+  "\"You might ask, 'Why would someone write code in a grotesque language\nthat exposes raw memory addresses? Why not use a modern language\nwith garbage collection and functional programming and free massages after lunch?'\nHere’s the answer: Pointers are real.\" – James Mickens",
+
+  "\"You can’t just place a LISP book on top of an x86 chip\nand hope that the hardware learns about lambda calculus by osmosis.\" – James Mickens",
+
+  "\"Nothing ruins a Friday at 5 P.M. faster than taking one last pass through the log file\nand discovering a word-aligned buffer address, but a buffer length of NUMBER OF ELECTRONS IN THE UNIVERSE.\" – James Mickens",
+
+  "\"The systems programmer has read the kernel source, to better understand\nthe deep ways of the universe, and the systems programmer has seen\nthe comment in the scheduler that says 'DOES THIS WORK LOL,'\nand the systems programmer has wept instead of LOLed.\" – James Mickens",
+
+  "\"A systems programmer will know what to do when society breaks down,\nbecause the systems programmer already lives in a world without law.\" – James Mickens",
+
+  "\"THERE ARE NO MODAL DIALOGS IN SPARTA.\" – James Mickens",
+
+  "\"As a systems hacker, you must be prepared to do savage things, unspeakable things,\nto kill runaway threads with your bare hands, to write directly to network ports\nusing telnet and an old copy of an RFC.\" – James Mickens",
+
+  "\"An impossibly large buffer error is like a criminal who breaks into your house,\nsprinkles sand atop random bedsheets and toothbrushes, and then waits\nfor you to slowly discover that your world has been tainted by madness.\" – James Mickens",
+
+  "\"Indeed, the common discovery mode for an impossibly large buffer error\nis that your program seems to be working fine, and then it tries to display a string\nthat should say “Hello world,” but instead it prints “#a[5]:3!”\nor another syntactically correct Perl script.\" – James Mickens",
+
+  "\"There is nothing funny to print when you have a misaligned memory access,\nbecause your machine is dead and there are no printers in the spirit world.\" – James Mickens",
 }
+
 
 return {
 	{
@@ -60,11 +67,11 @@ return {
 
 
 
-			dashboard.section.header.val = dragon_asci;
+			dashboard.section.header.val = puffy_ascii;
 
 
 			math.randomseed(os.time()) -- seed once
-			local quote = quotes[math.random(#quotes)]
+			local quote = obsd_quotes[math.random(#obsd_quotes)]
 
 			-- leader<m> should act like <leader>b (:#b) when there is a previous buffer
 			-- otherwise if not it should act like nf (":enew")
@@ -95,206 +102,6 @@ return {
 			}
 
 			alpha.setup(dashboard.config)
-
-			if #vim.fn.argv() == 0 then
-
-				-- The following code is to prevent users from accidentially closing the entire neovim session
-				-- when the last buffer is closed. Instead open alpha -- and only when alpha is open can we
-				-- actually close the session.
-
-				-- Map :q to :Quit globally
-				-- By remapping this we can handle this manually 
-				vim.api.nvim_create_autocmd("CmdlineEnter", {
-					callback = function()
-						vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Quit' : 'q'")
-						vim.cmd("cnoreabbrev <expr> qa getcmdtype() == ':' && getcmdline() == 'qa' ? 'QuitAll' : 'qa'")
-						vim.cmd("cnoreabbrev <expr> wq getcmdtype() == ':' && getcmdline() == 'wq' ? 'WriteQuit' : 'wq'")
-						vim.cmd("cnoreabbrev <expr> wqa getcmdtype() == ':' && getcmdline() == 'wqa' ? 'WriteQuitAll' : 'wqa'")
-					end,
-				})
-
-				-- Basically here we define out new "Quit" to close the current buffer instead of
-				-- properly quit -- this is to ensure that if we quit the last buffer we don't 
-				-- exit nvim. Further, we need to map the force commands on the bang accordingly,
-				-- to ensure it doesn't throw a tantroom when we need to force close a buffer.
-				--
-				-- Override :q to close buffer or quit only if on Alpha
-				-- Override :Quit to conditionally quit or buffer delete
-				vim.api.nvim_create_user_command("Quit", function(opts)
-					if vim.bo.filetype == "alpha" then
-						if opts.bang then
-							vim.cmd("q!")
-						else
-							vim.cmd("q")
-						end
-					else
-						if opts.bang then
-							vim.cmd("bd!")
-						else
-							vim.cmd("bd")
-						end
-					end
-				end, { bang = true })
-
-				-- Same story here as above -- however for the all version
-				-- this version will close all active buffers that it can
-				-- then the bufclose autocommand callback will catch the buffer
-				-- close and handle accordingly
-				--
-				-- Override :q to close buffer or quit only if on Alpha
-				-- Override :Quit to conditionally quit or buffer delete
-				vim.api.nvim_create_user_command("QuitAll", function(opts)
-					local alpha_open = vim.bo.filetype == "alpha"
-
-					local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-					local other_buffers = vim.tbl_filter(function(buf)
-						return buf.name ~= "" and buf.loaded and vim.api.nvim_buf_get_option(buf.bufnr, "filetype") ~= "alpha"
-					end, bufs)
-
-					if alpha_open and #other_buffers > 0 then
-						-- Close all other buffers and reload Alpha
-						for _, buf in ipairs(other_buffers) do
-							pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = opts.bang })
-						end
-						require("alpha").start(true)
-					elseif alpha_open then
-						-- If only Alpha is open, proceed with actual quit
-						if opts.bang then
-							vim.cmd("q!")
-						else
-							vim.cmd("q")
-						end
-					else
-						-- Not on Alpha, standard quit all behavior
-						if opts.bang then
-							vim.cmd("bufdo bd!")
-						else
-							vim.cmd("bufdo bd")
-						end
-					end
-				end, { bang = true })
-
-				-- Basically here we define out new "Quit" to close the current buffer instead of
-				-- properly quit -- this is to ensure that if we quit the last buffer we don't 
-				-- exit nvim. Further, we need to map the force commands on the bang accordingly,
-				-- to ensure it doesn't throw a tantroom when we need to force close a buffer.
-				--
-				-- Override :q to close buffer or quit only if on Alpha
-				-- Override :Quit to conditionally quit or buffer delete
-				vim.api.nvim_create_user_command("WriteQuit", function(opts)
-					vim.cmd("w")
-					if vim.bo.filetype == "alpha" then
-						if opts.bang then
-							vim.cmd("q!")
-						else
-							vim.cmd("q")
-						end
-					else
-						if opts.bang then
-							vim.cmd("bd!")
-						else
-							vim.cmd("bd")
-						end
-					end
-				end, { bang = true })
-
-				-- Same story here as above -- however for the all version
-				-- this version will close all active buffers that it can
-				-- then the bufclose autocommand callback will catch the buffer
-				-- close and handle accordingly
-				--
-				-- Override :q to close buffer or quit only if on Alpha
-				-- Override :Quit to conditionally quit or buffer delete
-				vim.api.nvim_create_user_command("WriteQuitAll", function(opts)
-					local alpha_open = vim.bo.filetype == "alpha"
-
-					local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-					local other_buffers = vim.tbl_filter(function(buf)
-						return buf.name ~= "" and buf.loaded and vim.api.nvim_buf_get_option(buf.bufnr, "filetype") ~= "alpha"
-					end, bufs)
-
-					vim.cmd([[bufdo if &modifiable && getbufvar(bufnr('%'), '&modified') | write | endif]])
-
-					if alpha_open and #other_buffers > 0 then
-						-- Close all other buffers and reload Alpha
-						for _, buf in ipairs(other_buffers) do
-							pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = opts.bang })
-						end
-						require("alpha").start(true)
-					elseif alpha_open then
-						-- If only Alpha is open, proceed with actual quit
-						if opts.bang then
-							vim.cmd("q!")
-						else
-							vim.cmd("q")
-						end
-					else
-						-- Not on Alpha, standard quit all behavior
-						if opts.bang then
-							vim.cmd("bufdo bd!")
-						else
-							vim.cmd("bufdo bd")
-						end
-					end
-				end, { bang = true })
-
-
-
-				-- This is the autocommand callback on buffer delete
-				-- it effectively just opens Alpha if all the other buffers are closed
-				-- if there are any modified buffers that haven't been saved yet, it will
-				-- instead focus those for the user the act accordingly
-				vim.api.nvim_create_autocmd("BufDelete", {
-					callback = function()
-						vim.defer_fn(function()
-							local bufs = vim.fn.getbufinfo()
-							local alpha_found = false
-							local other_buffers = 0
-							local fallback_buf = nil
-
-							for _, buf in ipairs(bufs) do
-								if buf.listed == 1 and buf.loaded then
-									local ft = vim.api.nvim_buf_get_option(buf.bufnr, "filetype")
-									local name = vim.api.nvim_buf_get_name(buf.bufnr)
-									local modified = buf.changed == 1
-
-									if ft == "alpha" then
-										alpha_found = true
-									elseif name ~= "" then
-										other_buffers = other_buffers + 1
-										if not fallback_buf and (modified or name ~= "") then
-											fallback_buf = buf.bufnr
-										end
-									end
-								end
-							end
-
-							if other_buffers == 0 then
-								if not alpha_found then
-									-- If there's a modified buffer still in memory, go back to it
-									if fallback_buf then
-										vim.api.nvim_set_current_buf(fallback_buf)
-									else
-										alpha.start(true)
-									end
-								end
-							end
-						end, 1)
-					end,
-				})
-
-				-- This little addition is to handle the edge case where a user decides to be a little bitch and close
-				-- the alpha buffer without quitting nvim. When this happens it will throw an error. 
-				vim.api.nvim_create_autocmd("CmdlineEnter", {
-					callback = function()
-						vim.cmd([[
-						cnoreabbrev <expr> bd
-						\ (getcmdtype() == ':' && &filetype == 'alpha') ? 'echo "Cannot :bd on Alpha screen"' : 'bd'
-						]])
-					end,
-				})
-
-			end
 
 			-- Now to implement everyone's favourite command - nuke. Now naturally bugs
 			-- may occur or else a session might get corrupted for whatever reason either related
