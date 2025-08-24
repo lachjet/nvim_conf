@@ -78,7 +78,7 @@ vim.api.nvim_set_keymap('n', '<leader>cs', '', {
     noremap = true,
     callback = function()
         -- Open a docked terminal on the right and run cscope -R
-        vim.cmd('FloatermNew --position=right --wintype=vsplit --width=30 cscope -R')
+        vim.cmd('FloatermNew --position=right --wintype=vsplit --width=90 cscope -R')
     end,
     desc = "Open cscope -R in docked right terminal"
 })
