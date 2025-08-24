@@ -72,6 +72,18 @@ map("t", "<C-t>b", "<C-\\><C-n>:FloatermPrev<CR>", opts)
 map("t", "<C-t>h", "<C-\\><C-n>:FloatermHide<CR>", opts)
 map("t", "<C-t>a", "<C-\\><C-n>:FloatermNew<CR>", opts)
 
+-- cscope
+-- Keybinding: <leader>cs to open cscope -R in a right docked terminal
+vim.api.nvim_set_keymap('n', '<leader>cs', '', {
+    noremap = true,
+    callback = function()
+        -- Open a docked terminal on the right and run cscope -R
+        vim.cmd('FloatermNew --position=right --width=0.4 cscope -R')
+    end,
+    desc = "Open cscope -R in docked right terminal"
+})
+
+
 --lazygit
 map("n", "<leader>g", ":FloatermNew --title=lazygit --width=150 --height=50 bash -c 'lazygit'; exit<CR>", opts)
 
