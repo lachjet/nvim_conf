@@ -39,9 +39,6 @@ return {
 						["av"] = { query = "@variable.outer", desc = "Around variable" },
 						["iv"] = { query = "@variable.inner", desc = "Inside variable" },
 
-						["aq"] = { query = "@string.outer", desc = "Around string" },
-						["iq"] = { query = "@string.inner", desc = "Inside string" },
-
 						["ak"] = { query = "@class.outer", desc = "Around class" },
 						["ik"] = { query = "@class.inner", desc = "Inside class" },
 

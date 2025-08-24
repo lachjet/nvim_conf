@@ -137,12 +137,21 @@ for i = 1, 9 do
 end
 
 -- General Quality of life keybindings
-map("n", "<leader>q", ":Quit<CR>", {desc = "Quit the current buffer"})
-map("n", "<leader>Q", ":Quit!<CR>", {desc = "Quit the current buffer"})
+map("n", "<leader>q", ":q<CR>", {desc = "Quit the current buffer"})
+map("n", "<leader>Q", ":q!<CR>", {desc = "Quit the current buffer"})
 map("n", "<leader>w", ":w<CR>", {desc = "Quit the current buffer"})
 map("i", "jj", "<ESC>", { desc = "Exit Insert mode with jk" })
-map("v", "jj", "<ESC>", { desc = "Exit Visual mode with jk" })
-
+map("v", "fp", "<ESC>", { desc = "Exit Visual mode with jk" })
+map("n", "<leader>ef", ":echo @%<CR>", { desc = "Echo the current path" })
+map("n", "<leader>h", "<C-w>h", { desc = "Jump to next window left" })
+map("n", "<leader>j", "<C-w>j", { desc = "Jump to next window up" })
+map("n", "<leader>k", "<C-w>k", { desc = "Jump to next window down" })
+map("n", "<leader>l", "<C-w>l", { desc = "Jump to next window right" })
+map("n", "<leader>v", "<C-w>v", { desc = "Jump to next window right" })
+map("n", "<leader>s", "<C-w>s", { desc = "Jump to next window right" })
+map("n", "<leader>y", "let @+ = @\"<CR>", { desc = "Yank Register to System Clipboard" })
+map("n", "<leader>Y", "let @\" = @+<CR>", { desc = "System Clipboard to Yank Register" })
+map("n", "<leader>r", ":later<CR>", { desc = "Jump to next window right" })
 M = {}
 M.HandleURL = function()
   local url = string.match(vim.fn.getline("."), "[a-z]+://[^%s%]%}%)\"'>,;]+")
