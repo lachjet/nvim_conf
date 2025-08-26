@@ -44,6 +44,19 @@ return {
 				opts
 			)
 
+			-- Only for MATLAB files
+			if vim.bo[bufnr].filetype == "matlab" then
+				-- Floating MATLAB REPL (<Leader>re)
+				buf_map(bufnr, 'n', '<Leader>re',
+					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=float --autoclose=0 /usr/local/MATLAB/R2025a/bin/matlab -nodisplay -nojvm -nosplash<CR>', opts)
+
+				-- Docked MATLAB REPL (<Leader>rd)
+				buf_map(bufnr, 'n', '<Leader>rd',
+					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=split --position=bottom --height=15 /usr/local/MATLAB/R2025a/bin/matlab -nodisplay -nojvm -nosplash<CR>', opts)
+			end
+
+
+
 
 		end
 
@@ -101,7 +114,41 @@ return {
 		lspconfig.texlab.setup({
 			on_attach    = on_attach,
 			capabilities = capbts,
-    })
-  end,
+
+		})
+		-- MATLAB Language Server
+
+		-- MATLAB Language Server
+		lspconfig.matlab_ls.setup({
+			on_attach    = on_attach,
+			capabilities = capbts,
+			cmd = {
+				"node",
+				"/home/lachjet/MATLAB-language-server/out/index.js",
+				"--stdio",
+				"--matlabInstallPath=/usr/local/MATLAB/R2025a"
+			},
+			filetypes = { "matlab" },
+			root_dir = lspconfig.util.root_pattern(".git", "."),
+			-- Optional: show inline diagnostics for MATLAB
+			handlers = {
+				["textDocument/publishDiagnostics"] = vim.lsp.with(
+					vim.lsp.diagnostic.on_publish_diagnostics, {
+						virtual_text = true,
+						signs = true,
+						underline = true,
+						update_in_insert = false,
+					}
+				),
+			}
+		})
+
+
+		-- Optional: customize diagnostic signs
+		vim.fn.sign_define("DiagnosticSignError", {text = "✖", texthl = "DiagnosticError"})
+		vim.fn.sign_define("DiagnosticSignWarn",  {text = "⚠", texthl = "DiagnosticWarn"})
+		vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticInfo"})
+		vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticHint"})
+	end,
 }
 
