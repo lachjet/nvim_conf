@@ -116,7 +116,6 @@ return {
 			capabilities = capbts,
 
 		})
-		-- MATLAB Language Server
 
 		-- MATLAB Language Server
 		lspconfig.matlab_ls.setup({
@@ -126,22 +125,22 @@ return {
 				"node",
 				"/home/lachjet/MATLAB-language-server/out/index.js",
 				"--stdio",
-				"--matlabInstallPath=/usr/local/MATLAB/R2025a"
+				"--matlabInstallPath=/usr/local/MATLAB/latest"
 			},
 			filetypes = { "matlab" },
 			root_dir = lspconfig.util.root_pattern(".git", "."),
-			-- Optional: show inline diagnostics for MATLAB
 			handlers = {
 				["textDocument/publishDiagnostics"] = vim.lsp.with(
 					vim.lsp.diagnostic.on_publish_diagnostics, {
-						virtual_text = true,
-						signs = true,
+						virtual_text = true,  -- inline errors/warnings
+						signs = true,         -- gutter signs
 						underline = true,
 						update_in_insert = false,
 					}
 				),
 			}
 		})
+
 
 
 		-- Optional: customize diagnostic signs
