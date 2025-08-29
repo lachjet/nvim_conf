@@ -44,15 +44,23 @@ return {
 				opts
 			)
 
-			-- Only for MATLAB files
+				if vim.bo[bufnr].filetype == "python" then
+				-- Floating Python3 (<Leader>re)
+				buf_map(bufnr, 'n', '<Leader>re',
+					'<cmd>FloatermNew! --name=python3 --wintype=float --autoclose=0 python3; exit<CR>', opts)
+
+				-- Docked Python3 (<Leader>rd)
+				buf_map(bufnr, 'n', '<Leader>rd',
+					'<cmd>FloatermNew! --name=python3 --wintype=split --position=bottom --height=15 python3; exit<CR>', opts)
+			end		-- Only for MATLAB files
 			if vim.bo[bufnr].filetype == "matlab" then
 				-- Floating MATLAB REPL (<Leader>re)
 				buf_map(bufnr, 'n', '<Leader>re',
-					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=float --autoclose=0 /usr/local/MATLAB/R2025a/bin/matlab -nodisplay -nojvm -nosplash<CR>', opts)
+					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=float --autoclose=0 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop nosplash; exit<CR>', opts)
 
 				-- Docked MATLAB REPL (<Leader>rd)
 				buf_map(bufnr, 'n', '<Leader>rd',
-					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=split --position=bottom --height=15 /usr/local/MATLAB/R2025a/bin/matlab -nodisplay -nojvm -nosplash<CR>', opts)
+					'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=split --position=bottom --height=15 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop -nosplash; exit<CR>', opts)
 			end
 
 
@@ -139,6 +147,11 @@ return {
 					}
 				),
 			}
+		})
+
+		lspconfig.pylsp.setup({
+			on_attach	= on_attach,
+			capabilities = capbts,
 		})
 
 
