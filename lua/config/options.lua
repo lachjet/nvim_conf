@@ -7,6 +7,10 @@ vim.cmd("set softtabstop=4");
 vim.cmd("set mouse=a");
 vim.cmd("set rnu");
 
+vim.o.modeline = false
+vim.o.modelines = 0
+
+
 vim.cmd("highlight LineNr       guifg=#5c6370 guibg=NONE")
 vim.cmd("highlight CursorLineNr guifg=#98c379 guibg=NONE")
 
