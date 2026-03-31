@@ -25,5 +25,6 @@ return {
 				},
 			}
 		)
+		vim.api.nvim_set_hl(0, "@comment", { fg = "#00CC00", italic = true })
 		end,
 	}

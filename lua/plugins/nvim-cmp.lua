@@ -4,17 +4,16 @@ return {
 		event = "InsertEnter",
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
 			'hrsh7th/vim-vsnip',
 			'hrsh7th/cmp-vsnip',
-			'f3fora/cmp-spell', -- spell completion source
-			-- Note: removed 'hrsh7th/cmp-buffer' from global deps so buffer is not auto-used everywhere.
+			'f3fora/cmp-spell', -- ✨ Add this dependency
 		},
 		config = function()
 			local cmp = require('cmp')
 
-			-- Global default: no 'buffer' source here
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -42,16 +41,15 @@ return {
 						end
 					end, { 'i', 's' }),
 				}),
-				-- keep language server + snippets by default only
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
 					{ name = 'vsnip' },
 				}, {
-					{ name = 'path' }, -- optionally keep path in the secondary bucket
+					{ name = 'buffer' },
 				}),
 			})
 
-			-- Cmdline completion for search (keep buffer here if you want search completions)
+			-- Cmdline completion for search
 			cmp.setup.cmdline({ '/', '?' }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
@@ -69,50 +67,22 @@ return {
 				})
 			})
 
-			-- ========== Filetype-specific setups ==========
-
-			-- LaTeX (and similar): enable spell + buffer + LSP + snippets
+			-- ✨ Spell completion for TeX files
 			cmp.setup.filetype('tex', {
 				sources = cmp.config.sources({
-					{ name = 'spell' },      -- spelling suggestions
-					{ name = 'buffer' },     -- buffer completions allowed for tex
+					{ name = 'spell' },
+					{ name = 'buffer' },
 					{ name = 'nvim_lsp' },
 					{ name = 'vsnip' },
 				})
 			})
 
-			-- Markdown and plain text: enable spell + buffer as well
-			for _, ft in ipairs({ 'markdown', 'text' }) do
-				cmp.setup.filetype(ft, {
-					sources = cmp.config.sources({
-						{ name = 'spell' },
-						{ name = 'buffer' },
-						{ name = 'nvim_lsp' },
-						{ name = 'vsnip' },
-					})
-				})
-			end
-
-			-- If you want buffer completions for specific programming filetypes (optional)
-			-- e.g. enable buffer completions for 'rust' and 'python'
-			--[[
-			for _, ft in ipairs({ 'rust', 'python' }) do
-				cmp.setup.filetype(ft, {
-					sources = cmp.config.sources({
-						{ name = 'nvim_lsp' },
-						{ name = 'buffer' },  -- allow buffer completions for these languages
-						{ name = 'vsnip' },
-					})
-				})
-			end
-			]]
-
-			-- Recommended: enable spell checking only for relevant filetypes
+			-- Recommended spell options for TeX
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "tex", "markdown", "text" },
+				pattern = { "tex" },
 				callback = function()
-					vim.opt_local.spell = true
-					vim.opt_local.spelllang = { "en_us" } -- change to en_au if you prefer
+					vim.opt.spell = true
+					vim.opt.spelllang = { "en_au" } -- or "en_au", etc.
 				end,
 			})
 		end,

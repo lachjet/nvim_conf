@@ -39,13 +39,46 @@ return {
 				-- Show diagnostics when <Leader>e is pressed
 				buf_map(bufnr, 'n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float(nil, { focus = false })<CR>', opts)
 
-				-- Python-specific keybindings
-				if vim.bo[bufnr].filetype == 'python' then
+				if vim.bo[bufnr].filetype == "python" then
+					local buf_map = vim.api.nvim_buf_set_keymap
+					local opts = { noremap = true, silent = true }
+
+					-- Basic REPLs (your existing ones)
 					buf_map(bufnr, 'n', '<Leader>re',
 						'<cmd>FloatermNew! --name=python3 --wintype=float --autoclose=0 python3; exit<CR>', opts)
 					buf_map(bufnr, 'n', '<Leader>rd',
 						'<cmd>FloatermNew! --name=python3 --wintype=split --position=bottom --height=15 python3; exit<CR>', opts)
+
+					-- Helper function to build shell command for venv terminal
+					local function venv_command()
+						-- get current working directory (project root)
+						local cwd = vim.fn.getcwd()
+						local venv_path = cwd .. "/venv/bin/activate"
+						local cmd = ""
+
+						-- If venv exists: just activate it
+						if vim.fn.filereadable(venv_path) == 1 then
+							cmd = string.format("source %s && clear", venv_path)
+						else
+							-- Otherwise create venv, then activate
+							cmd = "python3 -m venv venv && source venv/bin/activate && clear"
+						end
+						return cmd
+					end
+
+					-- Floating venv terminal (<Leader>vt)
+					vim.keymap.set("n", "<Leader>vt", function()
+						local cmd = venv_command()
+						vim.cmd(string.format("FloatermNew! --name=venv --wintype=float --autoclose=0 %s", cmd))
+					end, { noremap = true, silent = true, buffer = bufnr, desc = "Floating venv terminal" })
+
+					-- Docked venv terminal (<Leader>vd)
+					vim.keymap.set("n", "<Leader>vd", function()
+						local cmd = venv_command()
+						vim.cmd(string.format("FloatermNew! --name=venv --wintype=split --position=bottom --height=15 --autoclose=0 %s", cmd))
+					end, { noremap = true, silent = true, buffer = bufnr, desc = "Docked venv terminal" })
 				end
+
 
 				-- MATLAB-specific keybindings
 				if vim.bo[bufnr].filetype == 'matlab' then
