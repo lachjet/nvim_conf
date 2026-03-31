@@ -38,15 +38,38 @@ return {
           vim.diagnostic.open_float(nil, { focus = false })
         end)
 
-        -- Python REPL
+        -- Python-specific keybindings
         if vim.bo[bufnr].filetype == "python" then
           map("n", "<Leader>re",
             "<cmd>FloatermNew! --name=python3 --wintype=float --autoclose=0 python3; exit<CR>")
           map("n", "<Leader>rd",
             "<cmd>FloatermNew! --name=python3 --wintype=split --position=bottom --height=15 python3; exit<CR>")
+
+          -- Helper to build venv shell command
+          local function venv_command()
+            local cwd = vim.fn.getcwd()
+            local venv_path = cwd .. "/venv/bin/activate"
+            if vim.fn.filereadable(venv_path) == 1 then
+              return string.format("source %s && clear", venv_path)
+            else
+              return "python3 -m venv venv && source venv/bin/activate && clear"
+            end
+          end
+
+          -- Floating venv terminal
+          map("n", "<Leader>vt", function()
+            local cmd = venv_command()
+            vim.cmd(string.format("FloatermNew! --name=venv --wintype=float --autoclose=0 %s", cmd))
+          end)
+
+          -- Docked venv terminal
+          map("n", "<Leader>vd", function()
+            local cmd = venv_command()
+            vim.cmd(string.format("FloatermNew! --name=venv --wintype=split --position=bottom --height=15 --autoclose=0 %s", cmd))
+          end)
         end
 
-        -- MATLAB REPL
+        -- MATLAB-specific keybindings
         if vim.bo[bufnr].filetype == "matlab" then
           map("n", "<Leader>re",
             "<cmd>FloatermNew! --name=MATLAB_REPL --wintype=float --autoclose=0 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop -nosplash; exit<CR>")
@@ -54,56 +77,6 @@ return {
             "<cmd>FloatermNew! --name=MATLAB_REPL --wintype=split --position=bottom --height=15 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop -nosplash; exit<CR>")
         end
       end
-
-				if vim.bo[bufnr].filetype == "python" then
-					local buf_map = vim.api.nvim_buf_set_keymap
-					local opts = { noremap = true, silent = true }
-
-					-- Basic REPLs (your existing ones)
-					buf_map(bufnr, 'n', '<Leader>re',
-						'<cmd>FloatermNew! --name=python3 --wintype=float --autoclose=0 python3; exit<CR>', opts)
-					buf_map(bufnr, 'n', '<Leader>rd',
-						'<cmd>FloatermNew! --name=python3 --wintype=split --position=bottom --height=15 python3; exit<CR>', opts)
-
-					-- Helper function to build shell command for venv terminal
-					local function venv_command()
-						-- get current working directory (project root)
-						local cwd = vim.fn.getcwd()
-						local venv_path = cwd .. "/venv/bin/activate"
-						local cmd = ""
-
-						-- If venv exists: just activate it
-						if vim.fn.filereadable(venv_path) == 1 then
-							cmd = string.format("source %s && clear", venv_path)
-						else
-							-- Otherwise create venv, then activate
-							cmd = "python3 -m venv venv && source venv/bin/activate && clear"
-						end
-						return cmd
-					end
-
-					-- Floating venv terminal (<Leader>vt)
-					vim.keymap.set("n", "<Leader>vt", function()
-						local cmd = venv_command()
-						vim.cmd(string.format("FloatermNew! --name=venv --wintype=float --autoclose=0 %s", cmd))
-					end, { noremap = true, silent = true, buffer = bufnr, desc = "Floating venv terminal" })
-
-					-- Docked venv terminal (<Leader>vd)
-					vim.keymap.set("n", "<Leader>vd", function()
-						local cmd = venv_command()
-						vim.cmd(string.format("FloatermNew! --name=venv --wintype=split --position=bottom --height=15 --autoclose=0 %s", cmd))
-					end, { noremap = true, silent = true, buffer = bufnr, desc = "Docked venv terminal" })
-				end
-
-
-				-- MATLAB-specific keybindings
-				if vim.bo[bufnr].filetype == 'matlab' then
-					buf_map(bufnr, 'n', '<Leader>re',
-						'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=float --autoclose=0 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop -nosplash; exit<CR>', opts)
-					buf_map(bufnr, 'n', '<Leader>rd',
-						'<cmd>FloatermNew! --name=MATLAB_REPL --wintype=split --position=bottom --height=15 /usr/local/MATLAB/R2025a/bin/matlab -nodesktop -nosplash; exit<CR>', opts)
-				end
-			end
 
       ------------------------
       -- clangd
@@ -125,20 +98,19 @@ return {
       ------------------------
       -- neocmake
       ------------------------
-	  vim.lsp.config("neocmake", {
-	    cmd = vim.lsp.rpc.connect("127.0.0.1", 9257), -- FIXED here
-	    filetypes = { "cmake" },
-	    root_dir = and_root_dir,
-	    single_file_support = true,
-	    enable_external_cmake_lint = true,
-	    on_attach = on_attach,
-	    capabilities = capabilities,
-	    init_options = {
-	      format = { enable = true },
-	    },
-	  })
-	  vim.lsp.enable("neocmake")
-
+      vim.lsp.config("neocmake", {
+        cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
+        filetypes = { "cmake" },
+        root_dir = vim.fs.root(0, { "CMakeLists.txt", ".git" }), -- fixed: was undefined `and_root_dir`
+        single_file_support = true,
+        enable_external_cmake_lint = true,
+        on_attach = on_attach,
+        capabilities = capabilities,
+        init_options = {
+          format = { enable = true },
+        },
+      })
+      vim.lsp.enable("neocmake")
 
       ------------------------
       -- lua_ls
@@ -203,4 +175,3 @@ return {
     end,
   }
 }
-
